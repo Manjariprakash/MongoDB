@@ -1,0 +1,101 @@
+{{>header}}
+{{>navbar}}
+<div class="main-content">
+   <form name="hdForm" id='hdForm' method="POST">
+      <div class="container border border-primary mt-2 mb-2">
+         <div class="mt-2 row">
+            <label class="col-sm-2 col-form-label d-flex justify-content-end">Holiday ID:</label>
+            <div class="col-sm-10"> <input type="text" placeholder="#" value="{{holidayData._id}}" disabled
+                  class="form-control input-lg">
+               <input type="hidden" name="hId" id="hId" value="{{holidayData._id}}">
+               <input type="hidden" name="hlSelectedYear" id="hlSelectedYear" value="{{selectedYear}}">
+            </div>
+         </div>
+         <div class="mt-2 row">
+            <label class="col-sm-2 col-form-label d-flex justify-content-end">Location:</label>
+            <div class="col-sm-10">
+               <select class="form-select" name="hLoc" id="hLoc" {{#if readOnly}}disabled{{/if}}>
+                  <option value="" selected hidden>Select Location</option>
+                  <option value="Bettendorf,IA" {{#setSelected 'Bettendorf,IA' holidayData.Locations}}{{/setSelected}}>
+                     Bettendorf,IA</option>
+                  <option value="India" {{#setSelected 'India' holidayData.Locations}}{{/setSelected}}>India</option>
+                  <option value="All Locations" {{#setSelected 'All Locations' holidayData.Locations}}{{/setSelected}}>
+                     All Locations</option>
+               </select>
+            </div>
+         </div>
+         <div class="mt-2 row">
+            <label class="col-sm-2 col-form-label d-flex justify-content-end">Date:</label>
+            <div class="col-sm-10">
+               <input type="date" name="hDate" id="hDate" class="form-control input-lg" value="{{holidayData.Date}}"
+                  {{#if readOnly}}disabled{{/if}}>
+            </div>
+         </div>
+         <div class="mt-2 row">
+            <label class="col-sm-2 col-form-label d-flex justify-content-end">Holiday Type:</label>
+            <div class="col-sm-10">
+               <select class="form-select" name="hType" id="hType" {{#if readOnly}}disabled{{/if}}>
+                  <option value="" selected hidden>Holiday Type</option>
+                  <option value="Fixed" {{#setSelected 'Fixed' holidayData.Type}}{{/setSelected}}>Fixed</option>
+                  <option value="Optional" {{#setSelected 'Optional' holidayData.Type}}{{/setSelected}}>Optional
+                  </option>
+               </select>
+            </div>
+         </div>
+         <div class="mt-2 row">
+            <label class="col-sm-2 col-form-label d-flex justify-content-end">Description:</label>
+            <div class="col-sm-10">
+               <input type="text" name="hDesc" id="hDesc" placeholder="Description" value="{{holidayData.Desc}}"
+                  class="form-control input-lg" {{#if readOnly}}disabled{{/if}}>
+            </div>
+         </div>
+         <div class="mt-2 row">
+            <div id='formValidationMsg' class="col-sm-12 d-flex justify-content-center text-danger"></div>
+            {{#if successMsg}}
+            <div class="col-sm-12 d-flex justify-content-center text-success"> {{successMsg}}</div>
+            {{/if}}
+            {{#if failureMsg}}
+            <div id='failureMsg' class="col-sm-12 d-flex justify-content-center text-danger"> {{failureMsg}}</div>
+            {{/if}}
+         </div>
+         <div class="mt-2 mb-2 row">
+            <div class="col-sm-12 d-flex justify-content-center">
+               {{#unless readOnly}}
+               <button type="submit" formaction="/holidays/create" class="btn btn-primary mx-1">
+                  <i class="fa-solid fa-floppy-disk p-1" style="color:yellow"></i>
+                  Save
+               </button>
+               {{/unless}}
+
+               {{#unless newRecord}}
+               {{#unless readOnly}}
+               <button type="submit" formaction="/holidays/delete" class="btn btn-danger mx-1">
+                  <i class="fa-regular fa-trash-can p-1" style="color:yellow"></i>
+                  Delete
+               </button>
+               {{/unless}}
+               {{/unless}}
+
+               {{#if readOnly}}
+               <button type="submit" formaction="/holidays/update" class="btn btn-outline-info mx-1">
+               <i class="fa-solid fa-pen-to-square ps-1 text-success"></i>
+                  Switch to Update
+               </button>
+               {{/if}}
+
+               {{#unless newRecord}}
+               {{#unless readOnly}}
+               <button type="submit" formaction="/holidays/view" class="btn btn-outline-info mx-1">
+                  <i class="fa-solid fa-eye p-1" style="color:darkblue"></i>
+                  Switch to View
+               </button>
+               {{/unless}}
+               {{/unless}}
+               <a type="button" href="/?year={{selectedYear}}" class="btn btn-outline-info mx-1">
+                  Goto: Holidays
+               </a>
+            </div>
+         </div>
+   </form>
+</div>
+{{>footer}}

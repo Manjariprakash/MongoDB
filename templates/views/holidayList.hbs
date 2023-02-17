@@ -1,0 +1,52 @@
+{{>header}}
+        {{>navbar}}
+        <div class="main-content"></div>
+        <form name = hlForm action="/" method="GET">
+            <div class="row text-white" style="background-color:#17a2b8">
+                <div class="col-1">&nbsp;</div>
+                <div class="col-1 text-right mt-1">Filter-Year:</div>
+                <div class="col-2 text-left">
+                    <select class="form-select" name="year" id="year">
+                        {{#each yearList}}
+                         <option value="{{this}}" {{setSelected this ../selectedYear}}>{{this}}</option>
+                         {{/each}}
+                    </select>
+                </div>
+                <div class="col-1 text-left">
+                    <button class="btn text-white" type="submit">
+                        <i class="fa-solid fa-filter" style="color:white"></i>&nbsp;
+                        Filter
+                    </button>
+                </div>
+            </div>
+        
+        <div class="container-fluid">
+            <div class="row text-left bg-dark text-white">
+                <div class="col-1">
+                    Action
+                    <button type="submit" class="btn" formaction="/holidays/new" formmethod="POST">
+                        <i class="fa-solid fa-circle-plus" style="color:yellow"></i>
+                    </button>
+                </div>
+                <div class="col-1 mt-1">Date</div>
+                <div class="col-5 mt-1">Description</div>
+                <div class="col-2 mt-1">Type</div>
+                <div class="col-3 mt-1">Locations</div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <div id='failureMsg' class="col-sm-12 d-flex justify-content-center text-danger mt-1"> {{#if failureMsg}} {{failureMsg}}  {{selectedYear}}{{/if}}</div>
+    {{#each holidayData}}
+        <div class="row">
+            <div class="col-1">
+                <a class="btn" href="/holidays/view/{{this._id}}"><i class="fa-solid fa-eye ps-1" style="color:darkcyan"></i></a>
+                <a class="btn" href="/holidays/update/{{this._id}}"><i class="fa-solid fa-pen-to-square ps-1" style="color:orangered"></i></a>
+            </div>
+            <div class="col-1">{{this.Date}}</div>
+            <div class="col-5">{{this.Desc}}</div>
+            <div class="col-2">{{this.Type}}</div>
+            <div class="col-3">{{this.Locations}}  </div>
+        </div>
+    {{/each}}
+{{>footer}}
